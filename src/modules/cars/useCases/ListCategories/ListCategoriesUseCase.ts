@@ -1,9 +1,15 @@
+import { injectable, inject } from 'tsyringe'
+
 import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
+@injectable()
 export class ListCategoriesUseCase {
-  constructor(private categoriesRepository: ICategoriesRepository) { }
+  constructor(
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository
+  ) { }
 
-  public execute() {
-    return this.categoriesRepository.list()
+  public async execute() {
+    return await this.categoriesRepository.list()
   }
 }

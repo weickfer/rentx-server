@@ -1,4 +1,4 @@
-import { Specification } from "../../models/Specification";
+import { Specification } from "../../entities/Specification";
 import {
   ICreateSpecificationDTO,
   ISpecificationsRepository
@@ -21,7 +21,7 @@ export class InMemorySpecificationsRepository implements ISpecificationsReposito
     this.specifications = []
   }
 
-  public create({ name, description }: ICreateSpecificationDTO): void {
+  public async create({ name, description }: ICreateSpecificationDTO): Promise<void> {
     const specification = new Specification()
 
     Object.assign(specification, {
@@ -33,13 +33,13 @@ export class InMemorySpecificationsRepository implements ISpecificationsReposito
     this.specifications.push(specification)
   }
 
-  public findByName(name: string): Specification {
+  public async findByName(name: string): Promise<Specification> {
     return this.specifications.find(
       specification => specification.name === name
     )
   }
 
-  public list(): Specification[] {
+  public async list(): Promise<Specification[]> {
     return this.specifications
   }
 }
